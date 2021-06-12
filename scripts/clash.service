@@ -4,6 +4,12 @@ scripts=`realpath $0`
 scripts_dir=`dirname ${scripts}`
 . /data/clash/clash.config
 
+
+make_config(){
+    cat ${template_file} > ${temporary_config_file} && echo '\n' >> ${temporary_config_file}
+    sed -n -E '/^proxies:$/,$p' ${Clash_config_file} >> ${temporary_config_file}
+}
+
 start_clash() {
     pid=`cat ${Clash_pid_file} 2> /dev/null`
     if (cat /proc/${pid}/cmdline | grep -q clash) ; then
@@ -11,9 +17,8 @@ start_clash() {
         exit 1
     fi
 
-    cat ${template_file} > ${temporary_config_file} && echo '\n' >> ${temporary_config_file}
-    sed -n -E '/^proxies:$/,$p' ${Clash_config_file} >> ${temporary_config_file}
-
+    make_config
+    
     echo "" > ${CFM_logs_file}
 
     if [ -f "${Clash_bin_path}" ] ; then
@@ -65,13 +70,16 @@ stop_clash() {
     echo "info: 停止clash内核." >> ${CFM_logs_file}
 }
 
-while getopts ":sk" signal ; do
+while getopts ":sku" signal ; do
     case ${signal} in
         s)
             start_clash
             ;;
         k)
             stop_clash
+            ;;
+        u)
+            make_config
             ;;
         ?)
             echo ""

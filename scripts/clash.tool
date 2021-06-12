@@ -61,6 +61,8 @@ keep_dns() {
     unset local_dns
 }
 
+
+
 subscription() {
     if [ "${auto_subscription}" = "true" ] ; then
         mv -f ${Clash_config_file} ${Clash_data_dir}/config.yaml.backup
@@ -72,15 +74,17 @@ subscription() {
             ${scripts_dir}/clash.service -k && ${scripts_dir}/clash.tproxy -k
             rm -rf ${Clash_data_dir}/config.yaml.backup
             sleep 1
-            ${scripts_dir}/clash.service -s && ${scripts_dir}/clash.tproxy -s
-            if [ "$?" = "0" ] ; then
-                echo "info: 订阅更新成功,CFM已成功重启." >> ${CFM_logs_file}
-            else
-                echo "err: 订阅更新成功,CFM重启失败." >> ${CFM_logs_file}
-            fi
-        else
-            mv ${Clash_data_dir}/config.yaml.backup ${Clash_config_file}
-            echo "war: 订阅更新失败,配置文件已恢复.." >> ${CFM_logs_file}
+            ${scripts_dir}/clash.service -u
+            curl -v -H "Content-Type: application/json" -H "Authorization: Bearer ${clash_secret}" -X PUT -d "{\"path\": \"${temporary_config_file}\"}" "http://127.0.0.1:${clash_ec_port}"
+        #     ${scripts_dir}/clash.service -s && ${scripts_dir}/clash.tproxy -s
+        #     if [ "$?" = "0" ] ; then
+        #         echo "info: 订阅更新成功,CFM已成功重启." >> ${CFM_logs_file}
+        #     else
+        #         echo "err: 订阅更新成功,CFM重启失败." >> ${CFM_logs_file}
+        #     fi
+        # else
+        #     mv ${Clash_data_dir}/config.yaml.backup ${Clash_config_file}
+        #     echo "war: 订阅更新失败,配置文件已恢复.." >> ${CFM_logs_file}
         fi
     else
         exit 0
