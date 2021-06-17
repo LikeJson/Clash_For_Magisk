@@ -75,7 +75,7 @@ subscription() {
             rm -rf ${Clash_data_dir}/config.yaml.backup
             sleep 1
             ${scripts_dir}/clash.service -u
-            curl -v -H "Content-Type: application/json" -H "Authorization: Bearer ${clash_secret}" -X PUT -d "{\"path\": \"${temporary_config_file}\"}" "http://127.0.0.1:${clash_ec_port}"
+            ${extraBin_path}curl -v -H "Content-Type: application/json" -H "Authorization: Bearer ${clash_secret}" -X PUT -d "{\"path\": \"${temporary_config_file}\"}" "http://127.0.0.1:${clash_ec_port}"
         #     ${scripts_dir}/clash.service -s && ${scripts_dir}/clash.tproxy -s
         #     if [ "$?" = "0" ] ; then
         #         echo "info: 订阅更新成功,CFM已成功重启." >> ${CFM_logs_file}
