@@ -8,7 +8,7 @@
 
 * 由于[本人](https://github.com/kalasutra)写了两个版本的`clash magisk模块`,[cpfm](https://github.com/kalasutra/Clash_For_Magisk/releases/tag/Dev)和[cfm](https://github.com/kalasutra/Clash_For_Magisk)以及[Kr328](https://github.com/Kr328)的[cfm](https://github.com/Kr328/ClashForMagisk)的存在已导致版本混乱,Kr328的cfm也是Magisk官方模块仓库的版本,需注意你所下载的版本是否是你需要的版本.
 
-* 现阶段存在两个版本的Dashborad,[Jkkoi/DashBoard](https://github.com/Jkkoi/DashBoard)需配合此仓库的cfm使用,[Dashboard2/Dashboard](https://github.com/Dashboard2/Dashboard)需配合cpfm或者Kr328的cfm使用.
+* 现阶段存在两个版本的Dashborad,[LikeJson/DashBoard](https://github.com/LikeJson/DashBoard)需配合此仓库的cfm使用,[Dashboard2/Dashboard](https://github.com/Dashboard2/Dashboard)需配合cpfm或者Kr328的cfm使用.
 
 * 不能承诺每次更新都不会出问题,包括不限于无法使用,请考虑好在选择是否更新,或加入telegram群进行讨论,telegram群组[Dashboard 闲聊吹水[NSFJB]](https://t.me/blowH2O).
 
